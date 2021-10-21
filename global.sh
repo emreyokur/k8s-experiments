@@ -1,0 +1,9 @@
+export ROOT_DIR=/root
+export SERVER_0=192.168.7.110
+export SERVER_1=192.168.7.111
+export SERVER_2=192.168.7.109
+export SERVER_3=192.168.7.112
+export WORK_DIR=/home
+export CLUSTER_NAME="case-emre-yuksel-okur"
+export CLUSTER_DOMAIN="abc"
+export CLUSTER_FQDN="$CLUSTER_NAME.$CLUSTER_DOMAIN"
