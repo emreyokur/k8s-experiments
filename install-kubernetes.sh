@@ -1,6 +1,13 @@
+#!/usr/bin/bash
+
+set -x
+
+. $(dirname $0)/global.sh
+
+cd kubespray/
 cp -rfp inventory/sample inventory/$CLUSTER_NAME
 declare -a IPS=($SERVER_0 $SERVER_1)
-CONFIG_FILE=inventory/emre-cluster/hosts.yml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
+CONFIG_FILE=inventory/$CLUSTER_NAME/hosts.yml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
 
 #Change cluster name
 sed -i "s/cluster_name: cluster.local/cluster_name: $CLUSTER_FQDN/g" inventory/$CLUSTER_NAME/group_vars/k8s_cluster/k8s-cluster.yml

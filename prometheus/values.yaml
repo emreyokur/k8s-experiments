@@ -668,11 +668,11 @@ server:
   ## The URL prefix at which the container can be accessed. Useful in the case the '-web.external-url' includes a slug
   ## so that the various internal URLs are still able to access as they are in the default case.
   ## (Optional)
-  ## prefixURL: "prometheus.emreyukselokur.abc"
+  ## prefixURL: "prometheus.server1"
 
   ## External URL which can access prometheus
   ## Maybe same with Ingress host name
-  baseURL: "prometheus.emreyukselokur.abc"
+  baseURL: ""
 
   ## Additional server container environment variables
   ##
@@ -790,8 +790,8 @@ server:
 
     ## Prometheus server Ingress annotations
     ##
-    annotations: {}
-      #   kubernetes.io/ingress.class: nginx
+    annotations: 
+      kubernetes.io/ingress.class: nginx
       #   kubernetes.io/tls-acme: 'true'
 
     ## Prometheus server Ingress additional labels
@@ -802,7 +802,7 @@ server:
     ## Must be provided if Ingress is enabled
     ##
     hosts:
-        - prometheus-server
+        - server-emreyuksel-okur-1
     #   - prometheus.domain.com
     #   - domain.com/prometheus
 
@@ -895,7 +895,7 @@ server:
 
     ## Prometheus server data Persistent Volume mount root path
     ##
-    mountPath: /data/prom
+    mountPath: /mnt/data
 
     ## Prometheus server data Persistent Volume size
     ##
@@ -1029,7 +1029,7 @@ server:
   # Required for use in managed kubernetes clusters (such as AWS EKS) with custom CNI (such as calico),
   # because control-plane managed by AWS cannot communicate with pods' IP CIDR and admission webhooks are not working
   ##
-  hostNetwork: false
+  hostNetwork: true
 
   # When hostNetwork is enabled, you probably want to set this to ClusterFirstWithHostNet
   dnsPolicy: ClusterFirst

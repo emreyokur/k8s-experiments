@@ -1,3 +1,4 @@
+#!/usr/bin/bash -x
 export ROOT_DIR=/root
 export SERVER_0=192.168.7.110
 export SERVER_1=192.168.7.111

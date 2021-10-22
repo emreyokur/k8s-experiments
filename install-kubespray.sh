@@ -1,3 +1,8 @@
+#!/usr/bin/bash
+set -x
+
+. $(dirname $0)/global.sh
+
 git clone https://github.com/kubernetes-sigs/kubespray.git
 
 cd $WORK_DIR/kubespray
