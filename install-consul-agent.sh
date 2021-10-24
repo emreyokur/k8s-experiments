@@ -20,7 +20,7 @@ verify_incoming = true
 verify_outgoing = true
 verify_server_hostname = true
 retry_join = ["192.168.7.109"]
-bind_addr = "{{ GetInterfaceIP \"eth0\" }}"
+bind_addr = "192.168.7.110"
 server = false
 enable_script_checks = true
 EOF

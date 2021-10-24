@@ -6,7 +6,7 @@ sudo yum install -y yum-utils
 sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
 sudo yum -y install consul
 
-declare AGENTS=("192.168.7.111")
+declare -a AGENTS=("192.168.7.110")
 declare DC="dc1"
 
 export ENCRYPT=$(consul keygen)
