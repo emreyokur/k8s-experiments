@@ -83,7 +83,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      name: filebeat
+      k8s-app: filebeat
   template:
     metadata:
       labels:
