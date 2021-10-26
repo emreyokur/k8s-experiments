@@ -791,7 +791,7 @@ server:
     ## Prometheus server Ingress annotations
     ##
     annotations: 
-      kubernetes.io/ingress.class: nginx
+      # kubernetes.io/ingress.class: nginx
       #   kubernetes.io/tls-acme: 'true'
 
     ## Prometheus server Ingress additional labels
@@ -802,7 +802,7 @@ server:
     ## Must be provided if Ingress is enabled
     ##
     hosts:
-        - server-emreyuksel-okur-1
+        - prometheus.case-emreyukselokur.abc
     #   - prometheus.domain.com
     #   - domain.com/prometheus
 
@@ -839,7 +839,11 @@ server:
   ## Node tolerations for server scheduling to nodes with taints
   ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   ##
-  tolerations: []
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "prometheus"
+      effect: "NoSchedule"
 
   ## Node labels for Prometheus server pod assignment
   ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
@@ -1471,7 +1475,7 @@ serverFiles:
           - action: labelmap
             regex: __meta_kubernetes_node_label_(.+)
           - target_label: __address__
-            replacement: kubernetes.default.svc:443
+            replacement: 192.168.7.110:6443
           - source_labels: [__meta_kubernetes_node_name]
             regex: (.+)
             target_label: __metrics_path__
@@ -1513,7 +1517,7 @@ serverFiles:
           - action: labelmap
             regex: __meta_kubernetes_node_label_(.+)
           - target_label: __address__
-            replacement: kubernetes.default.svc:443
+            replacement: 192.168.7.110:6443
           - source_labels: [__meta_kubernetes_node_name]
             regex: (.+)
             target_label: __metrics_path__
