@@ -89,7 +89,18 @@ spec:
       labels:
         k8s-app: filebeat
 
+
     spec:
+      tolerations:
+      # this toleration is to have the daemonset runnable on master nodes
+      # remove it if your masters can't run pods
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+        effect: NoSchedule
+      - key: "dedicated"
+        operator: "Equal"
+        value: "prometheus"
+        effect: "NoSchedule"
       serviceAccountName: filebeat
       terminationGracePeriodSeconds: 30
       containers:
