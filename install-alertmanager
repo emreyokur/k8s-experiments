@@ -1,0 +1,65 @@
+#!/usr/bin/bash
+
+set -x
+
+useradd --no-create-home --shell /bin/false alertmanager
+
+wget https://github.com/prometheus/alertmanager/releases/download/v0.23.0/alertmanager-0.23.0.linux-amd64.tar.gz
+tar -xvf alertmanager-0.23.0.linux-amd64.tar.gz
+
+cp alertmanager-0.23.0.linux-amd64/alertmanager /usr/local/bin/
+cp alertmanager-0.23.0.linux-amd64/amtool /usr/local/bin/
+
+chown alertmanager:alertmanager /usr/local/bin/alertmanager
+chown alertmanager:alertmanager /usr/local/bin/amtool
+rm -rf alertmanager-0.23.0*
+
+mkdir --parents /etc/alertmanager
+
+cat > alertmanager.yml << EOF
+global:
+  smtp_smarthost: 'server-emreyuksel-okur-2:587'
+  smtp_from: 'AlertManager <alertmanager@case-emreyukselokur.abc>'
+  smtp_require_tls: true
+  smtp_hello: 'alertmanager'
+  smtp_auth_username: 'alertmanager'
+  smtp_auth_password: 'alertmanager'
+
+route:
+  group_by: ['instance', 'alert']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 3h
+  receiver: team-1
+
+receivers:
+  - name: 'team-1'
+    email_configs:
+      - to: 'alertmanager@case-emreyukselokur.abc'
+EOF
+
+mv alertmanager.yml /etc/alertmanager/alertmanager.yml
+chown alertmanager:alertmanager -R /etc/alertmanager
+
+cat > alertmanager.service << EOF
+[Unit]
+Description=Alertmanager
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=alertmanager
+Group=alertmanager
+Type=simple
+WorkingDirectory=/etc/alertmanager/
+ExecStart=/usr/local/bin/alertmanager --config.file=/etc/alertmanager/alertmanager.yml --web.external-url http://alertmanager.case-emreyukselokur.abc:9093
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+mv alertmanager.service /usr/lib/systemd/system/alertmanager.service
+chown alertmanager:alertmanager /usr/lib/systemd/system/alertmanager.service
+
+systemctl daemon-reload
+systemctl start alertmanager
