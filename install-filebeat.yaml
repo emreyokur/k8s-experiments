@@ -81,6 +81,9 @@ metadata:
   labels:
     k8s-app: filebeat
 spec:
+  selector:
+    matchLabels:
+      name: filebeat
   template:
     metadata:
       labels:
