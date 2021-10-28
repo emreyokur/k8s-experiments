@@ -7,6 +7,8 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
+    namespaces: 
+      - hello-goose
   parameters:
     cpu: "2000m"
     memory: "4G"
