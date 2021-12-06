@@ -4,6 +4,11 @@ This document aims to create an enterprise level kubernetes environment includin
 
 Below you can find the installation steps and related documentation for each step. 
 
+Note: For Gitlab pipelines part -> Related code can be found in repositories below and also inside internal Gitlab. 
+emreyokur/hello-goose
+emreyokur/prometheus
+emreyokur/alertmanager
+
 ## Contents
 
  1. [ Kubespray ](#kubespray)
